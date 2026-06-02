@@ -1,0 +1,193 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const notices = (await getCollection('notices'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4);
+
+const stats = [
+  { value: 'K–12', label: 'Classes Offered' },
+  { value: '100%', label: 'Monthly Tests' },
+  { value: 'Van', label: 'Transport Facility' },
+  { value: '★★★★', label: 'Lovely Atmosphere' },
+];
+---
+
+<Layout
+  title="Home"
+  description="H.S.R.D Public School – A K-12 school in Lauriya, West Champaran, Bihar. Aspiring for excellence. For your child's bright future."
+>
+  <!-- Hero -->
+  <section class="relative bg-brand-blue min-h-[85vh] flex items-center overflow-hidden" aria-label="Hero">
+    <!-- Background pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+    </div>
+    <!-- Accent circles -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-yellow opacity-10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-red opacity-10 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-blue-200 text-sm mb-6">
+            <span class="w-2 h-2 bg-brand-yellow rounded-full animate-pulse"></span>
+            Admissions Open 2025–26
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4">
+            H.S.R.D<br />
+            <span class="text-brand-yellow">Public School</span>
+          </h1>
+          <p class="text-blue-200 text-lg sm:text-xl mb-2 font-medium">Lauriya, West Champaran, Bihar</p>
+          <p class="text-white/90 text-base sm:text-lg mb-8 max-w-lg leading-relaxed">
+            <em>For your child's bright future.</em> A K–12 school committed to monthly testing, academic excellence, and a safe, nurturing environment.
+          </p>
+
+          <div class="flex flex-wrap gap-4">
+            <a href="/admissions#enquiry-form"
+               class="bg-brand-yellow hover:bg-yellow-400 text-brand-blue font-bold px-8 py-4 rounded-lg text-base transition-all hover:scale-105 shadow-lg">
+              Enquire for Admission
+            </a>
+            <a href="/contact"
+               class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-8 py-4 rounded-lg text-base transition-colors">
+              Contact Us
+            </a>
+          </div>
+
+          <!-- Trust bar -->
+          <div class="flex flex-wrap gap-4 mt-10">
+            <span class="flex items-center gap-2 text-blue-200 text-sm">
+              <svg class="w-4 h-4 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Monthly Tests
+            </span>
+            <span class="flex items-center gap-2 text-blue-200 text-sm">
+              <svg class="w-4 h-4 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              School Van Facility
+            </span>
+            <span class="flex items-center gap-2 text-blue-200 text-sm">
+              <svg class="w-4 h-4 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Secure Future
+            </span>
+          </div>
+        </div>
+
+        <!-- Logo display -->
+        <div class="flex justify-center lg:justify-end">
+          <div class="relative">
+            <div class="absolute inset-0 bg-brand-yellow opacity-20 rounded-full blur-3xl scale-110"></div>
+            <img
+              src="/logo.png"
+              alt="H.S.R.D Public School"
+              class="relative w-72 h-72 sm:w-80 sm:h-80 object-contain drop-shadow-2xl"
+              width="320"
+              height="320"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="bg-brand-yellow" aria-label="School highlights">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+        {stats.map(({ value, label }) => (
+          <div>
+            <dt class="text-brand-blue font-extrabold text-3xl">{value}</dt>
+            <dd class="text-brand-blue/80 text-sm mt-0.5">{label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- Why HSRD -->
+  <section class="py-16 sm:py-20 bg-white" aria-labelledby="why-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 id="why-heading" class="text-3xl sm:text-4xl font-extrabold text-gray-900">Why Choose H.S.R.D?</h2>
+        <p class="mt-3 text-gray-500 max-w-xl mx-auto">We combine academic rigour with a caring environment to help every child reach their potential.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          { icon: '📚', title: 'Monthly Tests', desc: 'Regular assessments keep students sharp and parents informed about progress throughout the year.' },
+          { icon: '🚐', title: 'School Van Facility', desc: 'Safe, reliable school transport for students across Lauriya and surrounding areas.' },
+          { icon: '🌟', title: 'Best Education', desc: 'Experienced teachers, structured curriculum, and a focus on conceptual clarity from nursery to Class XII.' },
+          { icon: '🔒', title: 'Secure Future', desc: 'Preparing students for board examinations and higher education with consistent academic support.' },
+          { icon: '🌿', title: 'Lovely Atmosphere', desc: 'A safe, nurturing campus where children feel welcome, valued, and excited to learn every day.' },
+          { icon: '👨‍👩‍👧', title: 'Parent Engagement', desc: 'Regular parent-teacher communication through notices, events, and open-door meetings.' },
+        ].map(({ icon, title, desc }) => (
+          <article class="p-6 rounded-xl border border-gray-100 hover:border-brand-blue/30 hover:shadow-md transition-all group">
+            <div class="text-3xl mb-4">{icon}</div>
+            <h3 class="font-bold text-gray-900 text-lg mb-2 group-hover:text-brand-blue transition-colors">{title}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">{desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Notices -->
+  <section class="py-16 sm:py-20 bg-gray-50" aria-labelledby="notices-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <h2 id="notices-heading" class="text-3xl font-extrabold text-gray-900">Latest Notices</h2>
+          <p class="text-gray-500 mt-1">Stay up-to-date with school announcements</p>
+        </div>
+        <a href="/life#notices" class="text-brand-blue hover:text-brand-blue-light font-semibold text-sm flex items-center gap-1">
+          View all
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="space-y-4">
+        {notices.map((notice) => (
+          <article class="bg-white rounded-xl p-5 border border-gray-200 hover:border-brand-blue/40 hover:shadow-sm transition-all flex gap-4 items-start">
+            <div class="shrink-0 bg-brand-blue text-white rounded-lg p-2.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-semibold text-gray-900">{notice.data.title}</h3>
+              <time class="text-xs text-gray-400 mt-0.5 block" datetime={notice.data.date.toISOString()}>
+                {notice.data.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </time>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Admissions CTA banner -->
+  <section class="bg-brand-blue py-16 sm:py-20" aria-label="Admissions call to action">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Ready to Join Our School Family?</h2>
+      <p class="text-blue-200 text-lg mb-8">
+        Admissions for 2025–26 are open. Fill in a quick enquiry form and our team will be in touch within 24 hours.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/admissions#enquiry-form"
+           class="bg-brand-yellow hover:bg-yellow-400 text-brand-blue font-bold px-8 py-4 rounded-lg text-base transition-all hover:scale-105">
+          Enquire for Admission
+        </a>
+        <a href="/about"
+           class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-8 py-4 rounded-lg text-base transition-colors">
+          Learn About Us
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

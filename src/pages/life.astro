@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const notices = (await getCollection('notices'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const events = (await getCollection('events'))
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const gallery = await getCollection('gallery');
+const galleryItems = gallery[0]?.data ?? [];
+---
+
+<Layout
+  title="Life @ School"
+  description="Notices, events, calendar, and photo gallery from H.S.R.D Public School, Lauriya, West Champaran, Bihar."
+>
+  <!-- Page hero -->
+  <section class="bg-brand-blue py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-blue-300 text-sm mb-4" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2">
+          <li><a href="/" class="hover:text-white">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white" aria-current="page">Life @ School</li>
+        </ol>
+      </nav>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white">Life @ School</h1>
+      <p class="text-blue-200 mt-3 text-lg max-w-2xl">Notices, upcoming events, and a glimpse into everyday life at H.S.R.D Public School.</p>
+    </div>
+  </section>
+
+  <!-- Page nav tabs -->
+  <div class="bg-white border-b border-gray-200 sticky top-[104px] z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex gap-1 overflow-x-auto" aria-label="Section navigation">
+        {[
+          { label: 'Notices', href: '#notices' },
+          { label: 'Events', href: '#events' },
+          { label: 'Gallery', href: '#gallery' },
+        ].map(({ label, href }) => (
+          <a href={href} class="shrink-0 px-4 py-3 text-sm font-medium text-gray-600 hover:text-brand-blue border-b-2 border-transparent hover:border-brand-blue transition-colors">
+            {label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </div>
+
+  <!-- Notices -->
+  <section id="notices" class="py-16 sm:py-20 bg-gray-50" aria-labelledby="notices-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="notices-heading" class="text-3xl font-extrabold text-gray-900 mb-8">Notices & News</h2>
+      {notices.length === 0 ? (
+        <div class="text-center py-12 text-gray-400">No notices yet.</div>
+      ) : (
+        <div class="space-y-4">
+          {notices.map((notice) => (
+            <article class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div class="flex gap-4">
+                <div class="shrink-0 bg-brand-blue text-white rounded-lg p-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 text-lg">{notice.data.title}</h3>
+                  <time class="text-xs text-gray-400 block mt-0.5 mb-3" datetime={notice.data.date.toISOString()}>
+                    {notice.data.date.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                  </time>
+                  <div class="text-gray-600 text-sm leading-relaxed prose prose-sm max-w-none">
+                    {notice.body}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section id="events" class="py-16 sm:py-20 bg-white" aria-labelledby="events-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="events-heading" class="text-3xl font-extrabold text-gray-900 mb-8">Upcoming Events</h2>
+      {events.length === 0 ? (
+        <div class="text-center py-12 text-gray-400">No upcoming events.</div>
+      ) : (
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {events.map((event) => {
+            const d = event.data.date;
+            const day = d.toLocaleDateString('en-IN', { day: 'numeric' });
+            const month = d.toLocaleDateString('en-IN', { month: 'short' });
+            const year = d.toLocaleDateString('en-IN', { year: 'numeric' });
+            return (
+              <article class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow flex gap-0">
+                <div class="bg-brand-blue text-white flex flex-col items-center justify-center px-5 py-6 min-w-[72px]">
+                  <span class="text-2xl font-extrabold leading-none">{day}</span>
+                  <span class="text-blue-200 text-xs uppercase mt-1">{month}</span>
+                  <span class="text-blue-300 text-xs">{year}</span>
+                </div>
+                <div class="p-5">
+                  <h3 class="font-bold text-gray-900">{event.data.title}</h3>
+                  {event.data.location && (
+                    <p class="text-gray-500 text-xs mt-1 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                      {event.data.location}
+                    </p>
+                  )}
+                  <p class="text-gray-600 text-sm mt-2 leading-relaxed">{event.body}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="py-16 sm:py-20 bg-gray-50" aria-labelledby="gallery-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="gallery-heading" class="text-3xl font-extrabold text-gray-900 mb-8">Photo Gallery</h2>
+      {galleryItems.length === 0 ? (
+        <div class="text-center py-12 text-gray-400">Gallery coming soon.</div>
+      ) : (
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {galleryItems.map((item: { image: string; caption: string; album: string }) => (
+            <figure class="group relative overflow-hidden rounded-xl aspect-square bg-gray-200">
+              <img
+                src={item.image}
+                alt={item.caption}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                width="300"
+                height="300"
+              />
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <p class="text-white text-xs font-medium">{item.caption}</p>
+                <p class="text-white/60 text-xs">{item.album}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
+      <div class="mt-8 bg-white rounded-xl border-2 border-dashed border-gray-200 p-8 text-center">
+        <p class="text-gray-400 text-sm">More photos will be added as events take place. Check back soon!</p>
+      </div>
+    </div>
+  </section>
+</Layout>

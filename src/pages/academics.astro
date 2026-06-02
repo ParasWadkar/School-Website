@@ -1,0 +1,150 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const stages = [
+  {
+    id: 'early-years',
+    label: 'Early Years',
+    classes: 'Nursery, LKG, UKG',
+    color: 'bg-yellow-50 border-brand-yellow',
+    badge: 'bg-brand-yellow text-brand-blue',
+    subjects: ['Language & Literacy', 'Number Sense', 'Environmental Awareness', 'Art & Craft', 'Music & Movement', 'Physical Development'],
+    desc: 'Our early-years programme focuses on building curiosity, basic language skills, and a love for learning through play-based activities in a nurturing setting.',
+  },
+  {
+    id: 'primary',
+    label: 'Primary',
+    classes: 'Classes I – V',
+    color: 'bg-blue-50 border-brand-blue',
+    badge: 'bg-brand-blue text-white',
+    subjects: ['English', 'Hindi', 'Mathematics', 'Environmental Science', 'General Knowledge', 'Computer Science', 'Art & Craft', 'Physical Education'],
+    desc: 'Strong foundational skills in literacy, numeracy, and science, delivered through structured lessons, regular practise, and monthly assessments.',
+  },
+  {
+    id: 'middle',
+    label: 'Middle School',
+    classes: 'Classes VI – VIII',
+    color: 'bg-red-50 border-brand-red',
+    badge: 'bg-brand-red text-white',
+    subjects: ['English', 'Hindi', 'Sanskrit / Third Language', 'Mathematics', 'Science', 'Social Science', 'Computer Science', 'Physical Education'],
+    desc: 'Building on primary learning with deeper subject engagement, project work, and preparation for board-level study patterns.',
+  },
+  {
+    id: 'secondary',
+    label: 'Secondary',
+    classes: 'Classes IX – X',
+    color: 'bg-purple-50 border-purple-400',
+    badge: 'bg-purple-600 text-white',
+    subjects: ['English', 'Hindi', 'Mathematics', 'Science', 'Social Science', 'Information Technology (Optional)'],
+    desc: 'Rigorous preparation for the Class X board examination. Regular tests, model papers, and individual attention to every student's progress.',
+  },
+  {
+    id: 'senior-secondary',
+    label: 'Senior Secondary',
+    classes: 'Classes XI – XII',
+    color: 'bg-green-50 border-green-500',
+    badge: 'bg-green-600 text-white',
+    subjects: ['Science Stream: Physics, Chemistry, Biology / Mathematics', 'Commerce Stream: Accountancy, Business Studies, Economics', 'Common: English, Physical Education'],
+    desc: 'Career-focused streams in Science and Commerce, with subject specialists and board exam preparation to launch students into higher education.',
+  },
+];
+---
+
+<Layout
+  title="Academics"
+  description="H.S.R.D Public School curriculum from Nursery to Class XII – primary, middle school, secondary, and senior secondary programmes in Lauriya, Bihar."
+>
+  <!-- Page hero -->
+  <section class="bg-brand-blue py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-blue-300 text-sm mb-4" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2">
+          <li><a href="/" class="hover:text-white">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white" aria-current="page">Academics</li>
+        </ol>
+      </nav>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white">Academics</h1>
+      <p class="text-blue-200 mt-3 text-lg max-w-2xl">A structured curriculum from Nursery through Class XII, backed by monthly assessments and experienced teachers.</p>
+    </div>
+  </section>
+
+  <!-- Our approach -->
+  <section class="py-12 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-3 gap-8 text-center">
+        {[
+          { icon: '📝', title: 'Monthly Tests', desc: 'Regular assessments every month keep students on track and parents informed.' },
+          { icon: '👩‍🏫', title: 'Experienced Faculty', desc: 'Subject-specialist teachers at every level, dedicated to student success.' },
+          { icon: '🎯', title: 'Board Focused', desc: 'Secondary and senior classes are structured around board exam excellence.' },
+        ].map(({ icon, title, desc }) => (
+          <div class="p-6">
+            <div class="text-4xl mb-3">{icon}</div>
+            <h3 class="font-bold text-gray-900 text-lg mb-1">{title}</h3>
+            <p class="text-gray-500 text-sm">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Curriculum by stage -->
+  <section class="py-16 sm:py-20 bg-gray-50" aria-labelledby="curriculum-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 id="curriculum-heading" class="text-3xl font-extrabold text-gray-900">Curriculum by Stage</h2>
+      </div>
+
+      <div class="space-y-6">
+        {stages.map((stage) => (
+          <article id={stage.id} class={`bg-white rounded-2xl border-l-4 ${stage.color} p-6 sm:p-8 shadow-sm`}>
+            <div class="flex flex-wrap items-start gap-4 mb-4">
+              <div>
+                <span class={`inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2 ${stage.badge}`}>
+                  {stage.label}
+                </span>
+                <h3 class="text-xl font-bold text-gray-900">{stage.classes}</h3>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4 leading-relaxed">{stage.desc}</p>
+            <div>
+              <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Subjects</p>
+              <div class="flex flex-wrap gap-2">
+                {stage.subjects.map((sub) => (
+                  <span class="bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full">{sub}</span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Results / toppers placeholder -->
+  <section class="py-16 sm:py-20 bg-white" aria-labelledby="results-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 id="results-heading" class="text-3xl font-extrabold text-gray-900">Results & Toppers</h2>
+        <p class="text-gray-500 mt-2">Our students consistently achieve excellent board results.</p>
+      </div>
+      <!-- Placeholder – replace with real data when available -->
+      <div class="bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 p-12 text-center">
+        <p class="text-4xl mb-3">🏆</p>
+        <p class="text-gray-400 font-medium">Results and topper highlights coming soon.</p>
+        <p class="text-gray-400 text-sm mt-1">Please check back after board results are published.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-brand-blue py-14">
+    <div class="max-w-2xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-extrabold text-white mb-4">Ready to Enrol?</h2>
+      <p class="text-blue-200 mb-8">Give your child the structured, caring education they deserve.</p>
+      <a href="/admissions#enquiry-form" class="bg-brand-yellow hover:bg-yellow-400 text-brand-blue font-bold px-8 py-4 rounded-lg transition-all hover:scale-105 inline-block">
+        Enquire for Admission
+      </a>
+    </div>
+  </section>
+</Layout>
