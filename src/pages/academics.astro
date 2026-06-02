@@ -8,6 +8,7 @@ const stages = [
     classes: 'Nursery, LKG, UKG',
     color: 'bg-yellow-50 border-brand-yellow',
     badge: 'bg-brand-yellow text-brand-blue',
+    board: 'CBSE',
     subjects: ['Language & Literacy', 'Number Sense', 'Environmental Awareness', 'Art & Craft', 'Music & Movement', 'Physical Development'],
     desc: 'Our early-years programme focuses on building curiosity, basic language skills, and a love for learning through play-based activities in a nurturing setting.',
   },
@@ -17,6 +18,7 @@ const stages = [
     classes: 'Classes I – V',
     color: 'bg-blue-50 border-brand-blue',
     badge: 'bg-brand-blue text-white',
+    board: 'CBSE',
     subjects: ['English', 'Hindi', 'Mathematics', 'Environmental Science', 'General Knowledge', 'Computer Science', 'Art & Craft', 'Physical Education'],
     desc: 'Strong foundational skills in literacy, numeracy, and science, delivered through structured lessons, regular practise, and monthly assessments.',
   },
@@ -26,6 +28,7 @@ const stages = [
     classes: 'Classes VI – VIII',
     color: 'bg-red-50 border-brand-red',
     badge: 'bg-brand-red text-white',
+    board: 'CBSE',
     subjects: ['English', 'Hindi', 'Sanskrit / Third Language', 'Mathematics', 'Science', 'Social Science', 'Computer Science', 'Physical Education'],
     desc: 'Building on primary learning with deeper subject engagement, project work, and preparation for board-level study patterns.',
   },
@@ -35,8 +38,9 @@ const stages = [
     classes: 'Classes IX – X',
     color: 'bg-purple-50 border-purple-400',
     badge: 'bg-purple-600 text-white',
+    board: 'Bihar Board (BSEB)',
     subjects: ['English', 'Hindi', 'Mathematics', 'Science', 'Social Science', 'Information Technology (Optional)'],
-    desc: 'Rigorous preparation for the Class X board examination. Regular tests, model papers, and individual attention to every student's progress.',
+    desc: 'Rigorous preparation for the Class X Bihar Board examination. Regular tests, model papers, and individual attention to every student\'s progress.',
   },
   {
     id: 'senior-secondary',
@@ -44,8 +48,9 @@ const stages = [
     classes: 'Classes XI – XII',
     color: 'bg-green-50 border-green-500',
     badge: 'bg-green-600 text-white',
+    board: 'Bihar Board (BSEB)',
     subjects: ['Science Stream: Physics, Chemistry, Biology / Mathematics', 'Commerce Stream: Accountancy, Business Studies, Economics', 'Common: English, Physical Education'],
-    desc: 'Career-focused streams in Science and Commerce, with subject specialists and board exam preparation to launch students into higher education.',
+    desc: 'Career-focused streams in Science and Commerce, with subject specialists and Bihar Board exam preparation to launch students into higher education.',
   },
 ];
 ---
@@ -98,13 +103,16 @@ const stages = [
       <div class="space-y-6">
         {stages.map((stage) => (
           <article id={stage.id} class={`bg-white rounded-2xl border-l-4 ${stage.color} p-6 sm:p-8 shadow-sm`}>
-            <div class="flex flex-wrap items-start gap-4 mb-4">
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
               <div>
                 <span class={`inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2 ${stage.badge}`}>
                   {stage.label}
                 </span>
                 <h3 class="text-xl font-bold text-gray-900">{stage.classes}</h3>
               </div>
+              <span class={`text-xs font-semibold px-3 py-1 rounded-full border ${stage.board === 'CBSE' ? 'bg-blue-50 text-brand-blue border-brand-blue/30' : 'bg-orange-50 text-orange-700 border-orange-300'}`}>
+                {stage.board}
+              </span>
             </div>
             <p class="text-gray-600 mb-4 leading-relaxed">{stage.desc}</p>
             <div>

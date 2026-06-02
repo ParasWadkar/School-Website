@@ -64,9 +64,19 @@ import Layout from '../layouts/Layout.astro';
 
           <!-- Board affiliation placeholder -->
           <div class="mt-8 p-5 bg-gray-50 rounded-xl border border-gray-200">
-            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Board Affiliation</p>
-            <p class="text-gray-700 font-semibold text-lg"><!-- TODO: Add board name and registration number --><span class="text-gray-400 italic text-base font-normal">Board affiliation to be confirmed</span></p>
-            <p class="text-gray-400 text-sm mt-1">Affiliation / Registration No: <span class="italic">to be updated</span></p>
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Board Affiliation</p>
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-block bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full shrink-0">Classes I – VIII</span>
+                <span class="text-gray-700 font-semibold">CBSE</span>
+                <span class="text-gray-400 text-sm">Central Board of Secondary Education</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="inline-block bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-full shrink-0">Classes IX – XII</span>
+                <span class="text-gray-700 font-semibold">Bihar Board</span>
+                <span class="text-gray-400 text-sm">Bihar School Examination Board (BSEB)</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
